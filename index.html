@@ -1,0 +1,935 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B2T9M92V5W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-B2T9M92V5W');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Hack TV Fútbol en Vivo HD</title>
+    <meta name="description" content="Hack TV online en vivo y en directo. Canales gratis para ver La Casa de los Famosos 24/7 y partidos del fútbol LaLiga de España, Serie A, Premier League, UEFA Champions League, Bundesliga.">
+    <meta name="keywords" content="Hack TV, Hack TV, la casa de los famosos colombia, espnpremium en vivo, roja directa, tarjeta roja, futbol libre, pelota libre, espn en vivo, deportes gratis, champions league, futbol online">
+    <link rel="canonical" href="https://hackapp.ct.ws/tv/">
+    
+    <meta property="og:title" content="Hack TV | En Vivo y en Directo">
+    <meta property="og:description" content="Canales gratis para ver La Casa de los Famosos 24/7 y partidos del fútbol LaLiga, Premier League y más en HD.">
+    <meta property="og:url" content="https://hackapp.ct.ws/tv/">
+    <meta property="og:image" content="https://i.postimg.cc/90vxtsjD/tv.jpg">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cdnbye-clappr-plugin@0.1.4/dist/plugin.min.js"></script>
+    
+    <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr-chromecast-plugin@latest/dist/clappr-chromecast-plugin.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        :root { 
+            --bg-base: #0B1014; 
+            --bg-nav: #121A21;
+            --bg-card: #1A232C;
+            --bg-card-hover: #222D38;
+            --accent: #00E5FF; 
+            --accent-glow: rgba(0, 229, 255, 0.2);
+            --text-main: #FFFFFF; 
+            --text-dim: #8B9BB4; 
+            --badge-live: #00E5FF;
+            --badge-live-text: #05333A;
+            --paypal: #FFC439;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body, html { 
+            width: 100%;
+            min-height: 100vh; 
+            background-color: var(--bg-base); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar { 
+            background-color: var(--bg-nav);
+            height: 70px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 40px; 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .navbar-left { display: flex; align-items: center; gap: 40px; }
+        .brand img { height: 35px; vertical-align: middle; }
+        
+        .navbar-right { display: flex; align-items: center; gap: 15px; }
+        .viewers-badge { 
+            font-size: 13px;
+            font-weight: 600; color: var(--text-main); 
+            background: rgba(255, 255, 255, 0.1); padding: 8px 15px; 
+            border-radius: 20px; display: flex; align-items: center; gap: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .viewers-badge i { color: var(--accent); }
+
+        .btn-donate-nav {
+            background: var(--paypal);
+            color: var(--bg-base);
+            font-weight: 600;
+            font-size: 13px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .btn-donate-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 196, 57, 0.3);
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .main-container { padding: 30px 40px; max-width: 1600px; margin: 0 auto; }
+
+        /* --- ÁREA DEL REPRODUCTOR --- */
+        .hero-section { 
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        /* Contenedor Refinado para PC y TVs */
+        #player-container {
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        #player-container::before {
+            content: "";
+            display: block;
+            padding-top: 56.25%;
+        }
+        
+        #player-wrapper { 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000; 
+            border-radius: 16px; 
+            overflow: hidden; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        [data-player] { 
+            width: 100% !important; 
+            height: 100% !important; 
+            position: relative;
+        }
+        [data-player] video { 
+            object-fit: contain !important; 
+            width: 100% !important; 
+            height: 100% !important; 
+            max-width: 100% !important; 
+            max-height: 100% !important; 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+        }
+        .clappr-player-fullscreen [data-player] video, 
+        :fullscreen [data-player] video, 
+        :-webkit-full-screen [data-player] video { 
+            width: 100% !important; 
+            height: 100% !important; 
+            object-fit: contain !important; 
+        }
+
+        /* Sticky Player Logic */
+        #player-wrapper.is-sticky { 
+            position: fixed !important;
+            bottom: 20px !important; right: 20px !important; 
+            width: 320px !important; height: 180px !important; z-index: 9999 !important; 
+            border-radius: 12px !important;
+            border: 2px solid var(--accent) !important; 
+        }
+
+        /* --- BARRA DE INFO Y BOTONES --- */
+        .video-info-bar {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .video-title { display: flex; align-items: center; gap: 15px; }
+        .tv-icon { width: 40px; height: 40px;
+            background: rgba(0, 229, 255, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 20px;
+        }
+        .video-title h1 { font-size: 18px; font-weight: 600; margin: 0; }
+        .video-title p { font-size: 13px; color: var(--text-dim); margin: 4px 0 0 0; }
+
+        .action-buttons { display: flex; gap: 10px; align-items: center; }
+        .btn-action { 
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1); 
+            color: var(--text-main); font-size: 14px; padding: 10px 15px; 
+            border-radius: 8px; cursor: pointer; transition: all 0.2s;
+            display: flex;
+            align-items: center; gap: 8px; font-weight: 500;
+        }
+        .btn-action:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        .btn-share { background: rgba(0, 229, 255, 0.1); color: var(--accent); border-color: rgba(0, 229, 255, 0.2); }
+        .btn-share:hover { background: var(--accent); color: var(--bg-base); }
+        
+        .btn-donate { background: rgba(255, 196, 57, 0.1); color: var(--paypal); border-color: rgba(255, 196, 57, 0.2); text-decoration: none; }
+        .btn-donate:hover { background: var(--paypal); color: var(--bg-base); }
+
+        .share-count-badge { background: #FF3B30; color: white; font-size: 11px; padding: 2px 6px; border-radius: 10px; margin-left: 5px; font-weight: bold; }
+
+        /* --- CUADRÍCULA DE CANALES --- */
+        .section-header { margin-bottom: 20px; font-size: 16px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .section-header span { color: var(--text-dim); font-size: 14px; font-weight: 400; }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .channel-card {
+            background: var(--bg-card); border-radius: 12px;
+            padding: 15px; cursor: pointer; position: relative;
+            border: 1px solid rgba(255,255,255,0.03); transition: all 0.3s ease;
+            display: flex; flex-direction: column; gap: 15px; overflow: hidden;
+        }
+        .channel-card:hover { background: var(--bg-card-hover); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .channel-card.active { background: var(--bg-card); border: 1px solid var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
+
+        .card-badge {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(255,255,255,0.1); color: var(--text-main);
+            font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px;
+            letter-spacing: 0.5px; z-index: 2;
+        }
+        .channel-card.active .card-badge { background: var(--badge-live); color: var(--badge-live-text); }
+
+        .card-logo {
+            height: 60px; width: 100%;
+            background: rgba(0,0,0,0.2); border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; padding: 10px;
+        }
+        .card-logo img { max-height: 100%; max-width: 100%; object-fit: contain; }
+
+        .card-info h4 { font-size: 14px; margin: 0 0 4px 0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-info p { font-size: 12px; margin: 0; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* --- FOOTER SEO --- */
+        .seo-footer {
+            background-color: #080C10; padding: 30px 40px; text-align: justify;
+            border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto;
+        }
+        .seo-footer h2 { color: var(--text-dim); font-size: 13px; margin: 0 0 10px 0; font-weight: 600; }
+        .seo-footer p { color: rgba(255,255,255,0.3); font-size: 12px; line-height: 1.6; margin: 0; }
+
+        /* --- MODAL DE COMPARTIR --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s ease; backdrop-filter: blur(5px); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { background: var(--bg-card); width: 90%; max-width: 380px; border-radius: 16px; padding: 25px 20px; border: 1px solid rgba(255,255,255,0.1); position: relative; transform: translateY(20px); transition: 0.3s ease; text-align: center; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 20px; color: var(--text-dim); cursor: pointer; transition: 0.2s; }
+        .close-modal:hover { color: var(--text-main); }
+        .modal-title { color: white; margin: 0 0 20px 0; font-size: 18px; font-weight: 600; }
+        .social-grid { display: grid; gap: 12px; }
+        .social-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px; border-radius: 10px; border: none; color: white; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .social-btn:active { transform: scale(0.97); }
+        .btn-wa { background: #25D366; }
+        .btn-fb { background: #1877F2; }
+        .btn-tw { background: #000000; border: 1px solid #333; }
+        .btn-tg { background: #0088cc; }
+        .btn-more { background: rgba(255,255,255,0.1); color: var(--text-main); }
+
+        /* --- BOTÓN FLOTANTE WHATSAPP --- */
+        .wa-floating-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: #25D366;
+            color: #ffffff;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            z-index: 9998;
+            transition: all 0.3s ease;
+            animation: pulse-wa 2s infinite;
+        }
+        .wa-floating-btn i { font-size: 22px; }
+        .wa-floating-btn:hover {
+            transform: translateY(-5px);
+            background-color: #1ebc59;
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+        }
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            .navbar { padding: 0 20px; height: 60px; }
+            .hide-mobile { display: none; }
+            .btn-donate-nav { padding: 6px 10px; font-size: 12px; }
+            .viewers-badge { padding: 6px 10px; font-size: 12px; }
+
+            .main-container { padding: 20px 15px; }
+            .hero-section { margin-bottom: 25px; }
+            #player-container { max-width: 100%; }
+            .video-info-bar { flex-direction: column; align-items: flex-start; gap: 15px; padding: 15px; max-width: 100%; }
+            
+            /* Ajuste para acomodar 4 botones en lugar de 3 en móvil */
+            .action-buttons { width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+            .btn-action { justify-content: center; flex-direction: column; gap: 5px; padding: 10px 2px; font-size: 10px; text-align: center; }
+            .btn-action i { font-size: 16px; }
+            
+            /* Ajuste del Botón Compartir Flotante */
+            .btn-action.btn-share { position: relative; overflow: visible !important; }
+            .share-count-badge { 
+                position: absolute; 
+                top: -6px; 
+                right: -6px; 
+                margin: 0;
+                z-index: 10;
+                border: 2px solid var(--bg-card); /* Borde para separarlo del fondo */
+                box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            }
+            
+            .channels-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .channel-card { padding: 10px; gap: 10px; }
+            .card-logo { height: 50px; padding: 5px; }
+            .card-info h4 { font-size: 13px; }
+            .card-info p { font-size: 11px; }
+            .seo-footer { padding: 20px 15px; }
+            #player-wrapper.is-sticky { width: 220px !important; height: 124px !important; bottom: 15px !important; right: 15px !important; }
+            
+            /* Ajuste WhatsApp Móvil */
+            .wa-floating-btn { bottom: 20px; left: 20px; padding: 0; width: 55px; height: 55px; border-radius: 50%; }
+            .wa-floating-btn .wa-text { display: none; }
+        }
+        @media (max-width: 400px) {
+            .channels-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div class="brand">
+                <img src="https://i.postimg.cc/90vxtsjD/tv.jpg" alt="MiraloTV"> 
+            </div>
+        </div>
+        <div class="navbar-right">
+            <a href="https://wa.link/83lf4l" target="_blank" class="btn-donate-nav" title="Apoyar a Hack TV">
+                <i class="fab fa-paypal"></i> Donar
+            </a>
+            <div class="viewers-badge" id="viewers-counter">
+                <i class="fas fa-users"></i> <span id="conectados-count">...</span><span class="hide-mobile">&nbsp;Personas conectadas</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        
+        <section class="hero-section">
+            <div id="player-container">
+                <div id="player-wrapper"></div>
+            </div>
+            
+            <div class="video-info-bar">
+                <div class="video-title">
+                    <div class="tv-icon"><i class="fas fa-tv"></i></div>
+                    <div>
+                        <h1 id="video-title-main">La Casa de los Famosos 24/7</h1>
+                        <p id="video-subtitle">Transmisión en directo</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="https://wa.link/83lf4l" target="_blank" class="btn-action btn-donate" title="Donar">
+                        <i class="fab fa-paypal"></i> Donar
+                    </a>
+                    <button class="btn-action btn-share" onclick="abrirModalShare()">
+                        <i class="fas fa-share-alt"></i> Compartir
+                        <span class="share-count-badge" id="desktop-share-count">0</span>
+                    </button>
+                    <button class="btn-action" onclick="activarPiP()" title="Ventana Flotante">
+                        <i class="fas fa-clone"></i> Flotante
+                    </button>
+                    <button class="btn-action" onclick="recargarReproductor()" title="Actualizar">
+                        <i class="fas fa-sync-alt"></i> Recargar
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="channels-section">
+            <div class="section-header">
+                CANALES EN VIVO <span>(28 DISPONIBLES)</span>
+            </div>
+            
+            <div class="channels-grid">
+
+                <div class="channel-card" onclick="cambiarCanal('espnpremium', this)">
+                    <div class="card-logo"><img src="espnp.png" alt="ESPN Premium"></div>
+                    <div class="card-info">
+                        <h4>ESPN Premium</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('espnpremiumarg', this)">
+                    <div class="card-logo"><img src="espnp.png" alt="ESPN Premium Arg"></div>
+                    <div class="card-info">
+                        <h4>ESPN Premium ARG</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('espn', this)">
+                    <div class="card-logo"><img src="espn.png" alt="ESPN"></div>
+                    <div class="card-info">
+                        <h4>ESPN</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('espn2', this)">
+                    <div class="card-logo"><img src="espn2.png" alt="ESPN 2"></div>
+                    <div class="card-info">
+                        <h4>ESPN 2</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('espn3', this)">
+                    <div class="card-logo"><img src="espn3.png" alt="ESPN 3"></div>
+                    <div class="card-info">
+                        <h4>ESPN 3</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('espn4', this)">
+                    <div class="card-logo"><img src="espn4.png" alt="ESPN 4"></div>
+                    <div class="card-info">
+                        <h4>ESPN 4</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('espn5', this)">
+                    <div class="card-logo"><img src="espn5.png" alt="ESPN 5"></div>
+                    <div class="card-info">
+                        <h4>ESPN 5</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('espn6', this)">
+                    <div class="card-logo"><img src="espn6.png" alt="ESPN 6"></div>
+                    <div class="card-info">
+                        <h4>ESPN 6</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('espn7', this)">
+                    <div class="card-logo"><img src="espn7.png" alt="ESPN 7"></div>
+                    <div class="card-info">
+                        <h4>ESPN 7</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('daznf1', this)">
+                    <div class="card-logo"><img src="dzf1.png" alt="DAZN F1" onerror="this.style.display='none'"></div>
+                    <div class="card-info">
+                        <h4>DAZN F1</h4>
+                        <p>Deportes Motor</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('daznlaliga', this)">
+                    <div class="card-logo"><img src="dzl.png" alt="DAZN La Liga" onerror="this.style.display='none'"></div>
+                    <div class="card-info">
+                        <h4>DAZN La Liga</h4>
+                        <p>Fútbol Español</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('foxsportspremium', this)">
+                    <div class="card-logo"><img src="foxp.png" alt="Fox Sports Premium" onerror="this.style.display='none'"></div>
+                    <div class="card-info">
+                        <h4>Fox Sports Premium</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('winsportsplus', this)">
+                    <div class="card-logo"><img src="win.png" alt="Win Sports Plus" onerror="this.style.display='none'"></div>
+                    <div class="card-info">
+                        <h4>Win Sports Plus</h4>
+                        <p>Fútbol Colombiano</p>
+                    </div>
+                </div>
+                
+                <div class="channel-card" onclick="cambiarCanal('tntsports', this)">
+                    <div class="card-logo"><img src="tnt.png" alt="TNT Sports" onerror="this.style.display='none'"></div>
+                    <div class="card-info">
+                        <h4>TNT Sports PREMIUM</h4>
+                        <p>Fútbol Argentino</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('tntsportschile', this)">
+                    <div class="card-logo"><img src="tnt.png" alt="TNT Sports Chile" onerror="this.style.display='none'"></div>
+                    <div class="card-info">
+                        <h4>TNT Sports Chile</h4>
+                        <p>Fútbol Chileno</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('tycsports', this)">
+                    <div class="card-logo"><img src="tyc.png" alt="TyC Sports" onerror="this.style.display='none'"></div>
+                    <div class="card-info">
+                        <h4>TyC Sports</h4>
+                        <p>Deportes Argentina</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('dsports', this)">
+                    <div class="card-logo"><img src="ds.png" alt="DSports"></div>
+                    <div class="card-info">
+                        <h4>DSports</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+                
+                <div class="channel-card" onclick="cambiarCanal('dsports2', this)">
+                    <div class="card-logo"><img src="ds2.png" alt="DSports 2"></div>
+                    <div class="card-info">
+                        <h4>DSports 2</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+
+                <div class="channel-card" onclick="cambiarCanal('dsportsplus', this)">
+                    <div class="card-logo"><img src="ds3.png" alt="DSports +"></div>
+                    <div class="card-info">
+                        <h4>DSports +</h4>
+                        <p>Deportes HD</p>
+                    </div>
+                </div>
+				
+				<div class="channel-card" onclick="cambiarCanal('tudn', this)">
+                    <div class="card-logo"><img src="https://www.cablevisionhd.com/imge/tudn.webp" alt="Tudn"></div>
+                    <div class="card-info">
+                        <h4>TUDN</h4>
+                        <p>TUDN EN VIVO</p>
+                    </div>
+                </div>
+				
+				<div class="channel-card" onclick="cambiarCanal('foxsport', this)">
+                    <div class="card-logo"><img src="foxps.png" alt="Fox Sport"></div>
+                    <div class="card-info">
+                        <h4>Fox Sports</h4>
+                        <p>Fox Sports HD</p>
+                    </div>
+                </div>
+				
+				<div class="channel-card" onclick="cambiarCanal('foxsport2', this)">
+                    <div class="card-logo"><img src="foxps2.jpg" alt="Fox Sport 2"></div>
+                    <div class="card-info">
+                        <h4>Fox Sports 2</h4>
+                        <p>Fox Sports 2 HD</p>
+                    </div>
+                </div>
+				
+				<div class="channel-card" onclick="cambiarCanal('foxsport3', this)">
+                    <div class="card-logo"><img src="foxps3.png" alt="Fox Sports 3"></div>
+                    <div class="card-info">
+                        <h4>Fox Sports 3</h4>
+                        <p>Fox Sports 3 HD</p>
+                    </div>
+                </div>
+				
+				<div class="channel-card" onclick="cambiarCanal('tntsportsx', this)">
+                    <div class="card-logo"><img src="tntp.png" alt="TNT Sports"></div>
+                    <div class="card-info">
+                        <h4>TNT Sports</h4>
+                        <p>TNT Sports HD</p>
+                    </div>
+                </div>
+				
+				<div class="channel-card" onclick="cambiarCanal('espnp', this)">
+                    <div class="card-logo"><img src="espnp.png" alt="ESPN Premium"></div>
+                    <div class="card-info">
+                        <h4>ESPN Premium</h4>
+                        <p>ESPN Premium HD</p>
+                    </div>
+                </div>
+				
+				<div class="channel-card" onclick="cambiarCanal('liga1max', this)">
+                    <div class="card-logo"><img src="liga1max.png" alt="Liga1 MAX"></div>
+                    <div class="card-info">
+                        <h4>Liga1 MAX</h4>
+                        <p>Liga1 MAX HD</p>
+                    </div>
+                </div>
+				
+				<div class="channel-card" onclick="cambiarCanal('movistar', this)">
+                    <div class="card-logo"><img src="movistarp.png" alt="Movistar Deportes"></div>
+                    <div class="card-info">
+                        <h4>Movistar Deportes</h4>
+                        <p>Movistar Deportes HD</p>
+                    </div>
+                </div>
+				
+				<div class="channel-card" onclick="cambiarCanal('winsportsplus2', this)">
+                    <div class="card-logo"><img src="winsportsplus2.png" alt="Win Sports"></div>
+                    <div class="card-info">
+                        <h4>Win Sports</h4>
+                        <p>Win Sports HD</p>
+                    </div>
+                </div>
+                
+                <div class="channel-card" onclick="cambiarCanal('clarop', this)">
+                    <div class="card-logo"><img src="https://e7.pngegg.com/pngimages/580/710/png-clipart-logo-claro-sports-graphics-vivo-logo-de-claro-text-logo.png" alt="Claro Sports"></div>
+                    <div class="card-info">
+                        <h4>Claro Sports</h4>
+                        <p>Claro Sports HD</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div> 
+    
+    <footer class="seo-footer">
+        <h2>Hack TV - Alternativa a Roja Directa y Tarjeta Roja</h2>
+        <p>En Hack TV te ofrecemos la mejor alternativa gratuita a Roja Directa, Tarjeta Roja, Fútbol Libre y Pelota Libre para ver deportes en vivo online. Disfruta de la transmisión 24/7 de La Casa de los Famosos Colombia, y no te pierdas ningún partido de la UEFA Champions League, LaLiga de España, Premier League inglesa, Serie A de Italia, Bundesliga, Copa Libertadores, Copa Sudamericana y las Eliminatorias al Mundial. Transmitimos todo el fútbol online gratis, además de NBA, Fórmula 1, UFC y los mejores canales deportivos como ESPN, Fox Sports y DirecTV Sports en calidad HD y sin cortes. La mejor televisión por internet y streaming deportivo está aquí.</p>
+    </footer>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://whatsapp.com/channel/0029VaAMgko05MUW81inJV04" target="_blank" class="wa-floating-btn" title="¡Únete a nuestro grupo de WhatsApp!">
+        <i class="fab fa-whatsapp"></i>
+        <span class="wa-text">¡Únete al Grupo!</span>
+    </a>
+
+    <div class="modal-overlay" id="modalShare" onclick="cerrarModalAfuera(event)">
+        <div class="modal-content">
+            <span class="close-modal" onclick="cerrarModalShare()"><i class="fas fa-times"></i></span>
+            <h3 class="modal-title">¡Comparte con tus amigos!</h3>
+            <div class="social-grid">
+                <button class="social-btn btn-wa" onclick="enviarRed('whatsapp')"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                <button class="social-btn btn-fb" onclick="enviarRed('facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
+                <button class="social-btn btn-tw" onclick="enviarRed('twitter')"><i class="fa-brands fa-x-twitter"></i> X (Twitter)</button>
+                <button class="social-btn btn-tg" onclick="enviarRed('telegram')"><i class="fab fa-telegram-plane"></i> Telegram</button>
+                <button class="social-btn btn-more" onclick="abrirNativo()"><i class="fas fa-share-alt"></i> Más opciones</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const listaCanales = {
+            'espnpremium': { tipo: 'iframe', url: "https://embed.ksdjugfsddeports.com/embed/espnpremium.html", title: "ESPN PREMIUM" },
+            'espnpremiumarg': { tipo: 'iframe', url: "https://embed.ksdjugfsddeports.com/embed/espnpremiumargentina.html", title: "ESPN PREMIUM ARG" },
+            'espn': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=espn", title: "ESPN - En Vivo" },
+            'espn2': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=espn2", title: "ESPN 2 - En Vivo" },
+            'espn3': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=espn3", title: "ESPN 3 - En Vivo" },
+            'espn4': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=espn4", title: "ESPN 4 - En Vivo" },
+            'espn5': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=espn5", title: "ESPN 5 - En Vivo" },
+            'espn6': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=espn6", title: "ESPN 6 - En Vivo" },
+            'espn7': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=espn7", title: "ESPN 7 - En Vivo" },
+            'daznf1': { tipo: 'iframe', url: "https://embed.ksdjugfsddeports.com/embed/daznf1.html", title: "DAZN F1" },
+            'daznlaliga': { tipo: 'iframe', url: "https://embed.ksdjugfsddeports.com/embed/daznlaliga.html", title: "DAZN La Liga" },
+            'foxsportspremium': { tipo: 'iframe', url: "https://embed.ksdjugfsddeports.com/embed/foxsportspremium.html", title: "Fox Sports PREMIUM" },
+            'tntsports': { tipo: 'iframe', url: "https://embed.ksdjugfsddeports.com/embed/tntsports.html", title: "TNT Sports PREMIUM" },
+            'tntsportschile': { tipo: 'iframe', url: "https://embed.ksdjugfsddeports.com/embed/tntsportschile.html", title: "TNT Sports CHILE" },
+            'tycsports': { tipo: 'iframe', url: "https://embed.ksdjugfsddeports.com/embed/tycsports.html", title: "TyC Sports" },
+            'winsportsplus': { tipo: 'iframe', url: "https://embed.ksdjugfsddeports.com/embed/winsportsplus.html", title: "Win Sports Plus" },
+            'dsports': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=dsports", title: "DSports - En Vivo" },
+            'dsports2': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=dsports2", title: "DSports 2 - En Vivo" },
+			'tudn': { tipo: 'iframe', url: "https://embed.ksdjugfsddeports.com/embed/tudn.html", title: "Tudn - En Vivo" },
+			'foxsport': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=foxsports", title: "Fox Sports - En Vivo" },
+			'foxsport2': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=foxsports2", title: "Fox Sports 2 - En Vivo" },
+			'foxsport3': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=foxsports3", title: "Fox Sports 3 - En Vivo" },
+			'tntsportsx': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=tntsports", title: "TNT Sports - En Vivo" },
+			'espnp': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=espnpremium", title: "ESPN Premium - En Vivo" },
+			'liga1max': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=liga1max", title: "Liga1 MAX - En Vivo" },
+			'movistar': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=movistar", title: "Movistar Deportes - En Vivo" },
+			'winsportsplus2': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=winsports", title: "Win Sports - En Vivo" },
+            'clarop': { tipo: 'iframe', url: "http://45.5.119.43:4000/play/a024/index.m3u8", title: "Claro Sports - En Vivo" },
+            'dsportsplus': { tipo: 'iframe', url: "https://tvtvhd.com/vivo/canales.php?stream=dsportsplus", title: "DSports + - En Vivo" }
+        };
+
+        let playerInstance = null;
+        let currentChannelId = 'espnpremium'; // Mantiene en memoria el canal actual para poder recargar
+
+        function cargarReproductor(canalData) {
+            const contenedor = document.getElementById('player-wrapper');
+            if (playerInstance) { playerInstance.destroy(); playerInstance = null; }
+            contenedor.innerHTML = '';
+            
+            if (canalData.tipo === 'm3u8') {
+                try {
+                    playerInstance = new Clappr.Player({
+                        source: canalData.url, 
+                        mimeType: 'application/x-mpegURL',
+                        parentId: "#player-wrapper",
+                        autoPlay: true, 
+                        mute: false, 
+                        disableVideoTagContextMenu: true,
+                        width: '100%', 
+                        height: '100%',
+                        plugins: [ChromecastPlugin],
+                        chromecast: {
+                            appId: '9DFB77C0',
+                            contentType: 'application/x-mpegURL',
+                            media: {
+                                title: canalData.title,
+                                subtitle: 'Hack TV En Vivo',
+                                streamType: 'LIVE'
+                            }
+                        },
+                        playback: {
+                            hlsjsConfig: {
+                                maxBufferSize: 60 * 1000 * 1000,
+                                maxBufferLength: 45,
+                                maxMaxBufferLength: 60,
+                                liveSyncDurationCount: 5,
+                                liveMaxLatencyDurationCount: 15,
+                                liveDurationInfinity: true,
+                                enableWorker: true,
+                                manifestLoadingTimeOut: 20000,
+                                manifestLoadingMaxRetry: 10,
+                                levelLoadingMaxRetry: 10,
+                                fragLoadingMaxRetry: 10
+                            }
+                        }
+                    });
+
+                    playerInstance.core.getCurrentPlayback().on(Clappr.Events.PLAYBACK_ERROR, function(e) {
+                        console.warn("Intento de reconexión tras error de HLS...");
+                        setTimeout(() => { playerInstance.play(); }, 2000);
+                    });
+
+                } catch(e) { console.error("Error Clappr:", e); }
+            } else if (canalData.tipo === 'iframe') {
+                contenedor.innerHTML = `<iframe src="${canalData.url}" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" sandbox="allow-scripts allow-same-origin allow-forms" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px;"></iframe>`;
+            }
+        }
+
+        window.cambiarCanal = function(idCanal, elementoBtn) {
+            document.querySelectorAll('.channel-card').forEach(card => {
+                card.classList.remove('active');
+                const badge = card.querySelector('.card-badge');
+                if(badge) badge.remove();
+            });
+            
+            elementoBtn.classList.add('active');
+            if(!elementoBtn.querySelector('.card-badge')) {
+                const badgeDiv = document.createElement('div');
+                badgeDiv.className = 'card-badge';
+                badgeDiv.textContent = 'EN VIVO';
+                elementoBtn.prepend(badgeDiv);
+            }
+
+            currentChannelId = idCanal;
+            const canal = listaCanales[idCanal];
+            if(canal) {
+                document.getElementById('video-title-main').textContent = canal.title;
+                cargarReproductor(canal);
+                if(window.innerWidth <= 768) window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
+
+        window.recargarReproductor = function() {
+            const canal = listaCanales[currentChannelId];
+            if(canal) {
+                cargarReproductor(canal);
+            }
+        };
+
+        // --- SOLUCIÓN ERROR DE FETCH (Sandbox & Producción) ---
+        function getSafeUrl(path) {
+            // Si detecta un entorno de sandbox o blob local previene el parseo inválido de URL 
+            // y apunta temporalmente a tu servidor real.
+            if (window.location.protocol === 'blob:' || window.location.hostname.includes('usercontent')) {
+                return 'https://miralotv.com/' + path;
+            }
+            return path;
+        }
+
+        function actualizarContador() {
+            try {
+                fetch(getSafeUrl('contador.php?t=' + new Date().getTime()))
+                    .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+                    .then(data => { document.getElementById('conectados-count').textContent = data.total; })
+                    .catch(() => document.getElementById('conectados-count').textContent = '...');
+            } catch (e) {
+                document.getElementById('conectados-count').textContent = '...';
+            }
+        }
+
+        function leerCompartidos() {
+            try {
+                fetch(getSafeUrl('contador_shares.php?t=' + new Date().getTime()))
+                    .then(r => r.json())
+                    .then(data => {
+                        document.getElementById('desktop-share-count').textContent = data.total_shares;
+                    })
+                    .catch(e => console.warn("Aviso: No se pudo leer el contador de shares (posible entorno de pruebas)."));
+            } catch (e) {
+                console.warn("Aviso: URL de shares bloqueada o no válida en este entorno.");
+            }
+        }
+
+        function sumarShare() {
+            try {
+                fetch(getSafeUrl('contador_shares.php'), { method: 'POST' })
+                    .then(r => r.json())
+                    .then(data => {
+                        document.getElementById('desktop-share-count').textContent = data.total_shares;
+                    })
+                    .catch(e => console.warn("Aviso: No se pudo sumar el share (posible entorno de pruebas)."));
+            } catch (e) {
+                console.warn("Aviso: No se pudo realizar la petición de sumado en este entorno.");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('video-title-main').textContent = listaCanales['espnpremium'].title;
+            cargarReproductor(listaCanales['espnpremium']);
+
+            actualizarContador();
+            leerCompartidos(); 
+            setInterval(actualizarContador, 15000); 
+            
+            const isTV = /SmartTV|Tizen|WebOS|TV|Roku|AppleTV|Chromecast|Viera|Bravia|Android TV|PlayStation|Xbox/i.test(navigator.userAgent);
+            if (!isTV) {
+                const container = document.getElementById('player-container');
+                const player = document.getElementById('player-wrapper');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    if (!entries[0].isIntersecting && entries[0].boundingClientRect.bottom < 0) {
+                        player.classList.add('is-sticky');
+                    } else {
+                        player.classList.remove('is-sticky');
+                    }
+                }, { threshold: 0 });
+                observer.observe(container);
+            }
+        });
+
+        function activarPiP() {
+            const video = document.querySelector('video');
+            if (!video) { alert("La ventana flotante nativa no está disponible en este canal porque es una señal incrustada de terceros."); return; }
+
+            if (document.pictureInPictureEnabled && video.requestPictureInPicture) {
+                if (document.pictureInPictureElement) { document.exitPictureInPicture().catch(e => console.error(e)); } 
+                else { video.requestPictureInPicture().catch(error => alert("Asegúrate de reproducir el video primero.")); }
+            } else if (video.webkitSupportsPresentationMode && typeof video.webkitSetPresentationMode === "function") {
+                video.webkitSetPresentationMode(video.webkitPresentationMode !== "picture-in-picture" ? "picture-in-picture" : "inline");
+            } else {
+                alert("Tu navegador o dispositivo no soporta la ventana flotante nativa.");
+            }
+        }
+
+        function abrirModalShare() { document.getElementById('modalShare').classList.add('active'); }
+        function cerrarModalShare() { document.getElementById('modalShare').classList.remove('active'); }
+        function cerrarModalAfuera(event) { if (event.target === document.getElementById('modalShare')) cerrarModalShare(); }
+
+        function enviarRed(red) {
+            sumarShare();
+            cerrarModalShare(); 
+            const url = "https://hackapp.ct.ws/tv/";
+            const tituloActual = document.getElementById('video-title-main').textContent;
+            const textoLimpio = `¡Estoy viendo ${tituloActual} en vivo! 📺 Entra aquí y míralo conmigo: ${url}`;
+            let link = "";
+            if (red === 'whatsapp') link = `https://api.whatsapp.com/send?text=${encodeURIComponent(textoLimpio)}`;
+            else if (red === 'facebook') link = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            else if (red === 'twitter') link = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`¡Estoy viendo ${tituloActual} en vivo! 📺 Entra aquí y míralo conmigo:`)}&url=${encodeURIComponent(url)}`;
+            else if (red === 'telegram') link = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(`¡Estoy viendo ${tituloActual} en vivo! 📺`)}`;
+            window.open(link, "_blank");
+        }
+
+        function abrirNativo() {
+            sumarShare();
+            cerrarModalShare();
+            const tituloActual = document.getElementById('video-title-main').textContent;
+            if (navigator.share) {
+                navigator.share({ title: tituloActual, text: `¡Estoy viendo ${tituloActual} en vivo! 📺 Entra aquí y míralo conmigo:`, url: "https://hackapp.ct.ws/tv/" })
+                .catch(e => console.log('Cancelado/Error:', e));
+            } else {
+                alert("Tu dispositivo no soporta esta función. Intenta con los botones de arriba.");
+            }
+        }
+    </script>
+    
+    <script type="text/javascript">
+var sc_project=13210548; 
+var sc_invisible=1; 
+var sc_security="458c31d5"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics
+Made Easy - Statcounter" href="https://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/13210548/0/458c31d5/1/"
+alt="Web Analytics Made Easy - Statcounter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"493a2ae5cb174c13afbad37413416511","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
